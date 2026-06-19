@@ -1,0 +1,400 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header {
+  padding: 16px var(--spacing-page) 8px;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px var(--spacing-page) calc(var(--tab-bar-height) + 20px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profileCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px var(--spacing-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatarLg {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.avatarBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.changeIconHint {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.emojiPicker {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+  background: var(--color-bg-input);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.emojiBtn {
+  width: 36px;
+  height: 36px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+}
+
+.emojiBtn:hover {
+  background: var(--color-primary-light);
+}
+
+.nicknameInput {
+  width: 100%;
+  max-width: 200px;
+  text-align: center;
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.nickname {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.editBtn {
+  padding: 8px 24px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  color: #555555;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+}
+
+.editBtns {
+  display: flex;
+  gap: 8px;
+}
+
+.saveSmBtn {
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.cancelSmBtn {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-input);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: #555555;
+}
+
+.emptyGroups {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-card);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.emptyText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.groupBtns {
+  display: flex;
+  gap: 8px;
+}
+
+.newGroupBtn, .joinGroupBtn {
+  flex: 1;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.newGroupBtn {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.joinGroupBtn {
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.groupCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.groupCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: var(--spacing-card);
+  cursor: pointer;
+}
+
+.groupIconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.groupEmoji {
+  font-size: 24px;
+}
+
+.groupMeta {
+  flex: 1;
+}
+
+.groupName {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.groupSub {
+  font-size: var(--font-size-sm);
+  color: #555555;
+  margin-top: 2px;
+}
+
+.groupActions {
+  display: flex;
+  gap: 6px;
+}
+
+.copyBtn {
+  color: var(--color-primary-muted);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+}
+
+.groupDetail {
+  border-top: 1px solid var(--color-border);
+  padding: 14px var(--spacing-card);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--color-bg-input);
+  animation: fadeIn 0.2s ease;
+}
+
+.inviteCode {
+  font-size: var(--font-size-md);
+  color: #555555;
+}
+
+.goalEdit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.goalInput {
+  width: 60px;
+  padding: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-card);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.textBtn {
+  font-size: var(--font-size-md);
+  color: #555555;
+  font-weight: 700;
+  text-align: left;
+}
+
+.memberList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.memberListTitle {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.memberRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.memberAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #fff;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.memberName {
+  flex: 1;
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.kickBtn {
+  font-size: var(--font-size-xs);
+  color: #e05555;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: #fff0f0;
+}
+
+.ownerActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.regenBtn {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.deleteGroupBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: #fff0f0;
+  color: #e05555;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+}
+
+.leaveBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-sm);
+  color: #e05555;
+  font-weight: 700;
+}
+
+.addGroupRow {
+  display: flex;
+  gap: 8px;
+}
+
+.addGroupBtn {
+  flex: 1;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  color: #555555;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+}
+
+.dangerBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px var(--spacing-card);
+  background: var(--color-bg-card);
+  border: 1.5px solid #e05555;
+  border-radius: var(--radius-md);
+  color: #e05555;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  width: 100%;
+}

@@ -1,0 +1,248 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 var(--spacing-page) 40px;
+  animation: fadeIn 0.25s ease;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.backBtn {
+  color: var(--color-text-primary);
+  padding: 4px;
+}
+
+.stepIndicator {
+  display: flex;
+  gap: 8px;
+}
+
+.stepDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  transition: all 0.2s;
+}
+
+.stepDotActive {
+  background: var(--color-primary);
+  width: 20px;
+}
+
+.stepDotDone {
+  background: var(--color-mint);
+}
+
+.stepContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.stepTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.stepDesc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--color-bg-input);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+}
+
+.selectedIcon {
+  font-size: 64px;
+  width: 90px;
+  height: 90px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emojiGrid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.emojiBtn {
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+}
+
+.emojiBtn:hover {
+  background: var(--color-primary-light);
+}
+
+.emojiBtn.emojiSelected {
+  background: var(--color-primary);
+}
+
+.goalSelector {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.goalBtn {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-group-icon);
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  color: var(--color-text-secondary);
+  transition: all 0.2s;
+}
+
+.goalBtn.goalSelected {
+  background: var(--color-primary);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.goalHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.nextBtn {
+  width: 100%;
+  height: 54px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+.nextBtn:disabled {
+  opacity: 0.4;
+}
+
+/* done */
+.doneContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.doneIcon {
+  font-size: 72px;
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.doneTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.doneDesc {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.codeBox {
+  background: var(--color-primary-light);
+  border-radius: var(--radius-lg);
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.codeLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.code {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: 6px;
+}
+
+.copyBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.codeHint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.primaryBtn {
+  width: 100%;
+  height: 54px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+}

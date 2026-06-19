@@ -1,0 +1,55 @@
+:root {
+  /* 배경 */
+  --color-bg-app: #EDE8F8;
+  --color-bg-card: #FFFFFF;
+  --color-bg-group-icon: #D8D0EE;
+  --color-bg-toggle: #D8D0EE;
+  --color-bg-input: #F5F2FC;
+
+  /* 보라 포인트 */
+  --color-primary: #7B6BBF;
+  --color-primary-light: #EDE8F8;
+  --color-primary-muted: #B0A8D0;
+
+  /* 민트 (완료/달성) */
+  --color-mint: #6EBFA8;
+  --color-mint-light: #E4F8F0;
+  --color-mint-muted: #A8D8C8;
+
+  /* 텍스트 */
+  --color-text-primary: #333333;
+  --color-text-secondary: #555555;
+  --color-text-muted: #555555;
+
+  /* 멤버 도트 색상 */
+  --color-member-1: #A898D8;
+  --color-member-2: #6EBFA8;
+  --color-member-3: #D098C0;
+  --color-member-4: #F0B870;
+  --color-member-5: #88B8E0;
+  --color-member-6: #A8C888;
+
+  /* 보더 */
+  --color-border: #E0D8F0;
+
+  /* 폰트 크기 */
+  --font-size-xs: 13px;
+  --font-size-sm: 15px;
+  --font-size-md: 17px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 28px;
+
+  /* 반경 */
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* 간격 */
+  --spacing-page: 16px;
+  --spacing-card: 18px;
+
+  /* 하단 탭바 높이 */
+  --tab-bar-height: 68px;
+}

@@ -1,0 +1,17 @@
+.btn {
+  border-radius: var(--radius-full);
+  background: var(--color-mint-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn.done {
+  background: var(--color-mint);
+}
+
+.btn:active {
+  transform: scale(0.92);
+}

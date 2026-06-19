@@ -1,0 +1,270 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header {
+  padding: 16px var(--spacing-page) 8px;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.groupPicker {
+  display: flex;
+  gap: 8px;
+  padding: 0 var(--spacing-page) 8px;
+  overflow-x: auto;
+}
+
+.groupBtn {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-group-icon);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.groupActive {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.tabRow {
+  display: flex;
+  padding: 0 var(--spacing-page);
+  border-bottom: 1px solid var(--color-border);
+  gap: 0;
+}
+
+.tab {
+  flex: 1;
+  padding: 12px;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  border-bottom: 2px solid transparent;
+}
+
+.tab.tabActive {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px var(--spacing-page) calc(var(--tab-bar-height) + 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.goalSection {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-card);
+}
+
+.goalLabel {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.progressBar {
+  height: 10px;
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-mint);
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+.chartCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-card);
+}
+
+.chartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.chartTitle {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 12px;
+}
+
+.periodToggle {
+  display: flex;
+  background: var(--color-bg-toggle);
+  border-radius: var(--radius-full);
+  padding: 2px;
+}
+
+.periodBtn {
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.periodBtn.periodActive {
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+}
+
+.sectionLabel {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+}
+
+.allGroupsGrid {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-card);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.groupRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.groupLabel {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  min-width: 80px;
+}
+
+.miniDots {
+  display: flex;
+  gap: 4px;
+}
+
+.miniDot {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--color-primary-light);
+}
+
+.miniDot.miniDone {
+  background: var(--color-mint);
+}
+
+.memberGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.memberGridRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.memberInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 90px;
+}
+
+.memberAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.memberGridName {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.memberBars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.memberBarRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.memberBarName {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  min-width: 70px;
+}
+
+.memberBarTrack {
+  flex: 1;
+  height: 10px;
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.memberBarFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.3s;
+}
+
+.memberBarVal {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  min-width: 40px;
+  text-align: right;
+}

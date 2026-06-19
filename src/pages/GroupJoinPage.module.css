@@ -1,0 +1,146 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  animation: fadeIn 0.25s ease;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px var(--spacing-page);
+}
+
+.backBtn {
+  color: var(--color-text-primary);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.content {
+  flex: 1;
+  padding: 20px var(--spacing-page) 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.codeInput {
+  width: 100%;
+  padding: 18px 24px;
+  background: var(--color-bg-input);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-align: center;
+  letter-spacing: 8px;
+  transition: border-color 0.2s;
+}
+
+.codeInput:focus {
+  border-color: var(--color-primary);
+}
+
+.error {
+  font-size: var(--font-size-sm);
+  color: #e05555;
+  font-weight: 600;
+  text-align: center;
+}
+
+.previewCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.previewIcon {
+  font-size: 56px;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.previewName {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.previewCode {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.goalSelector {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.goalBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-group-icon);
+  font-size: var(--font-size-md);
+  font-weight: 800;
+  color: var(--color-text-secondary);
+  transition: all 0.2s;
+}
+
+.goalBtn.goalSelected {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.goalHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: 700;
+  text-align: center;
+}
+
+.primaryBtn {
+  width: 100%;
+  height: 54px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  margin-top: auto;
+}
+
+.primaryBtn:disabled {
+  opacity: 0.4;
+}

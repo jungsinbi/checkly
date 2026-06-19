@@ -1,0 +1,29 @@
+.row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.dot {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-group-icon);
+  color: #555555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.dot.done {
+  background: var(--color-mint);
+  color: #fff;
+}
+
+.dot.today {
+  border: 2.5px solid var(--color-mint);
+  color: var(--color-mint);
+  background: transparent;
+}

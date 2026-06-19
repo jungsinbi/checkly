@@ -1,0 +1,112 @@
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-card);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.navBtn {
+  color: var(--color-primary);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.dayHeaders {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.dayHeader {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  padding: 4px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.cell {
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 0;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+
+.cell:hover {
+  background: var(--color-primary-light);
+}
+
+.otherMonth {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.otherMonth:hover {
+  background: transparent;
+}
+
+.dateNum {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.dateNum.today {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.dateNum.memo {
+  background: #F4D0E8;
+  color: var(--color-text-primary);
+}
+
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+  margin-top: 2px;
+  min-height: 10px;
+}
+
+.memberDot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+
+
+.starEmoji {
+  font-size: 12px;
+  line-height: 1;
+}
