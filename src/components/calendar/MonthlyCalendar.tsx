@@ -1,6 +1,6 @@
 import { CaretLeft, CaretRight } from '@phosphor-icons/react'
 import { getMonthDays, formatMonthTitle, toDateStr, isSameMonth } from '../../lib/dates'
-import type { StudyLog, GroupMember, Memo } from '../../types'
+import type { Memo } from '../../types'
 import styles from './MonthlyCalendar.module.css'
 
 const DAY_HEADERS = ['일', '월', '화', '수', '목', '금', '토']
@@ -9,25 +9,19 @@ interface Props {
   viewDate: Date
   onPrev: () => void
   onNext: () => void
-  logs: StudyLog[]
-  members: GroupMember[]
   memos: Memo[]
   userId: string
   onDateClick: (date: string) => void
 }
 
-export function MonthlyCalendar({ viewDate, onPrev, onNext, logs, members, memos, userId, onDateClick }: Props) {
+export function MonthlyCalendar({ viewDate, onPrev, onNext, memos, userId, onDateClick }: Props) {
   const days = getMonthDays(viewDate)
   const todayStr = toDateStr(new Date())
 
   function getCellData(date: Date) {
     const dateStr = toDateStr(date)
-    const dayLogs = logs.filter((l) => l.date === dateStr && l.is_done)
-    const doneMemberIds = new Set(dayLogs.map((l) => l.user_id))
-    const doneMembers = members.filter((m) => doneMemberIds.has(m.user_id))
-    const allDone = members.length > 0 && doneMembers.length === members.length
     const hasMemo = memos.some((m) => m.date === dateStr && m.user_id === userId)
-    return { doneMembers, allDone, hasMemo }
+    return { hasMemo }
   }
 
   return (
@@ -49,7 +43,7 @@ export function MonthlyCalendar({ viewDate, onPrev, onNext, logs, members, memos
           const dateStr = toDateStr(date)
           const isCurrentMonth = isSameMonth(date, viewDate)
           const isToday = dateStr === todayStr
-          const { doneMembers, allDone, hasMemo } = getCellData(date)
+          const { hasMemo } = getCellData(date)
           const dateNumClass = isToday ? styles.today : hasMemo ? styles.memo : ''
 
           return (
@@ -61,21 +55,6 @@ export function MonthlyCalendar({ viewDate, onPrev, onNext, logs, members, memos
               <div className={`${styles.dateNum} ${isCurrentMonth ? dateNumClass : ''}`}>
                 {date.getDate()}
               </div>
-              {isCurrentMonth && (
-                <div className={styles.dots}>
-                  {allDone ? (
-                    <span className={styles.starEmoji}>💜</span>
-                  ) : (
-                    doneMembers.map((m) => (
-                      <span
-                        key={m.user_id}
-                        className={styles.memberDot}
-                        style={{ background: m.color }}
-                      />
-                    ))
-                  )}
-                </div>
-              )}
             </div>
           )
         })}

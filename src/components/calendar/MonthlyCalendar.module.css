@@ -89,24 +89,3 @@
   color: var(--color-text-primary);
 }
 
-.dots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
-  justify-content: center;
-  margin-top: 2px;
-  min-height: 10px;
-}
-
-.memberDot {
-  width: 7px;
-  height: 7px;
-  border-radius: var(--radius-full);
-  display: inline-block;
-}
-
-
-.starEmoji {
-  font-size: 12px;
-  line-height: 1;
-}

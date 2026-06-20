@@ -32,8 +32,8 @@ export function CalendarPage({ user }: Props) {
   const currentGroup = groups.find((g) => g.id === activeGroupId) || groups[0] || null
   const currentGroupId = currentGroup?.id
 
-  const { logs, toggleToday, toggleDate } = useStudyLogs(currentGroupId, user.id)
-  const { memos, saveMemo, getMemoForDate } = useMemos(user.id, currentGroupId ? [currentGroupId] : [])
+  const { logs, fetchLogs, toggleToday, toggleDate } = useStudyLogs(currentGroupId, user.id)
+  const { memos, fetchMemos, saveMemo, getMemoForDate } = useMemos(user.id, currentGroupId ? [currentGroupId] : [])
 
   const currentMembers = currentGroupId ? (members[currentGroupId] || []) : []
 
@@ -73,12 +73,16 @@ export function CalendarPage({ user }: Props) {
     if (calMode === 'monthly') d.setMonth(d.getMonth() - 1)
     else d.setDate(d.getDate() - 7)
     setViewDate(d)
+    fetchLogs()
+    fetchMemos()
   }
   function nextPeriod() {
     const d = new Date(viewDate)
     if (calMode === 'monthly') d.setMonth(d.getMonth() + 1)
     else d.setDate(d.getDate() + 7)
     setViewDate(d)
+    fetchLogs()
+    fetchMemos()
   }
 
   async function handleSheetSave(_done: boolean, memo: string) {
@@ -156,8 +160,6 @@ export function CalendarPage({ user }: Props) {
                 viewDate={viewDate}
                 onPrev={prevPeriod}
                 onNext={nextPeriod}
-                logs={logs}
-                members={currentMembers}
                 memos={memos}
                 userId={user.id}
                 onDateClick={setSelectedDate}
