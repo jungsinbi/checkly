@@ -1,25 +1,28 @@
 :root {
   /* 배경 */
-  --color-bg-app: #EDE8F8;
+  --color-bg-app: #FBF7F2;
   --color-bg-card: #FFFFFF;
-  --color-bg-group-icon: #D8D0EE;
-  --color-bg-toggle: #D8D0EE;
-  --color-bg-input: #F5F2FC;
+  --color-bg-group-icon: #F4EAE2;
+  --color-bg-toggle: #F4EAE2;
+  --color-bg-input: #FAF4EE;
 
-  /* 보라 포인트 */
-  --color-primary: #7B6BBF;
-  --color-primary-light: #EDE8F8;
-  --color-primary-muted: #B0A8D0;
+  /* 로즈 포인트 */
+  --color-primary: #B84C72;
+  --color-primary-light: #FBEAEF;
+  --color-primary-muted: #D9A3B6;
 
-  /* 민트 (완료/달성) */
-  --color-mint: #6EBFA8;
-  --color-mint-light: #E4F8F0;
-  --color-mint-muted: #A8D8C8;
+  /* 코랄 (완료/달성) — 이름은 예전 민트 그대로 */
+  --color-mint: #E8637F;
+  --color-mint-light: #FFE6EA;
+  --color-mint-muted: #F5B3C0;
+
+  /* 캘린더 하트 */
+  --color-heart: #E8637F;
 
   /* 텍스트 */
-  --color-text-primary: #333333;
-  --color-text-secondary: #555555;
-  --color-text-muted: #555555;
+  --color-text-primary: #3A2E2A;
+  --color-text-secondary: #5E4F48;
+  --color-text-muted: #5E4F48;
 
   /* 멤버 도트 색상 */
   --color-member-1: #A898D8;
@@ -30,7 +33,7 @@
   --color-member-6: #A8C888;
 
   /* 보더 */
-  --color-border: #E0D8F0;
+  --color-border: #EFE4DA;
 
   /* 폰트 크기 */
   --font-size-xs: 13px;
@@ -52,4 +55,7 @@
 
   /* 하단 탭바 높이 */
   --tab-bar-height: 68px;
+  /* 홈 인디케이터 영역 + 최소 여백 */
+  --tab-bar-safe-bottom: max(env(safe-area-inset-bottom, 0px), 14px);
+  --tab-bar-total: calc(var(--tab-bar-height) + var(--tab-bar-safe-bottom));
 }

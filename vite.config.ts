@@ -12,8 +12,8 @@ export default defineConfig({
         name: 'Checkly',
         short_name: 'Checkly',
         description: '그룹 습관 체크 앱',
-        theme_color: '#7B6BBF',
-        background_color: '#EDE8F8',
+        theme_color: '#FBF7F2',
+        background_color: '#FBF7F2',
         display: 'standalone',
         start_url: '/',
         icons: [

@@ -85,7 +85,18 @@
 }
 
 .dateNum.memo {
-  background: #F4D0E8;
+  background: var(--color-bg-group-icon);
   color: var(--color-text-primary);
 }
 
+
+.mark {
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart {
+  color: var(--color-heart);
+}

@@ -80,31 +80,16 @@ export function useGroups(userId: string | undefined) {
   const joinGroup = useCallback(async (
     inviteCode: string,
     weeklyGoal: number,
-    userId: string
+    _userId: string
   ) => {
-    const { data: group } = await supabase
-      .from('groups')
-      .select('*')
-      .eq('invite_code', inviteCode.toUpperCase())
-      .single()
-    if (!group) throw new Error('유효하지 않은 초대코드입니다')
-
-    const { data: existingMembers } = await supabase
-      .from('group_members')
-      .select('id, color')
-      .eq('group_id', group.id)
-
-    const usedColors = (existingMembers || []).map((m: { color: string }) => m.color)
-    const color = MEMBER_COLORS.find((c) => !usedColors.includes(c)) || MEMBER_COLORS[0]
-
-    const { error } = await supabase.from('group_members').insert({
-      group_id: group.id,
-      user_id: userId,
-      weekly_goal: weeklyGoal,
-      color,
+    // 멤버가 아니면 그룹을 직접 못 읽으므로 DB 함수로 참여 (색상 배정 포함)
+    const { data: group, error } = await supabase.rpc('join_group', {
+      p_code: inviteCode,
+      p_weekly_goal: weeklyGoal,
     })
     if (error) {
-      if (error.code === '23505') throw new Error('이미 참여 중인 그룹입니다')
+      if (error.message.includes('invalid_code')) throw new Error('유효하지 않은 초대코드입니다')
+      if (error.message.includes('already_member')) throw new Error('이미 참여 중인 그룹입니다')
       throw error
     }
 
@@ -114,10 +99,8 @@ export function useGroups(userId: string | undefined) {
 
   const getGroupByInviteCode = useCallback(async (code: string) => {
     const { data } = await supabase
-      .from('groups')
-      .select('*')
-      .eq('invite_code', code.toUpperCase())
-      .single()
+      .rpc('get_group_by_invite_code', { p_code: code })
+      .maybeSingle()
     return data as Group | null
   }, [])
 
@@ -150,7 +133,8 @@ export function useGroups(userId: string | undefined) {
       .update({ weekly_goal: goal })
       .eq('group_id', groupId)
       .eq('user_id', userId)
-  }, [])
+    await fetchMembers(groupId)
+  }, [fetchMembers])
 
   const regenerateInviteCode = useCallback(async (groupId: string) => {
     const newCode = generateInviteCode()

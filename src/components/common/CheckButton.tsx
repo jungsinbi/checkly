@@ -15,11 +15,7 @@ export function CheckButton({ isDone, onToggle, size = 64 }: Props) {
       style={{ width: size, height: size }}
       aria-label={isDone ? '체크 취소' : '체크 완료'}
     >
-      <Check
-        size={size * 0.5}
-        weight="bold"
-        color={isDone ? '#fff' : '#6EBFA8'}
-      />
+      <Check size={size * 0.5} weight="bold" />
     </button>
   )
 }

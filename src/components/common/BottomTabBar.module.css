@@ -5,14 +5,14 @@
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
-  height: var(--tab-bar-height);
+  height: var(--tab-bar-total);
   background: var(--color-bg-card);
   border-top: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: space-around;
   z-index: 100;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-bottom: var(--tab-bar-safe-bottom);
 }
 
 .tab {
@@ -31,6 +31,6 @@
 }
 
 .label {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
 }

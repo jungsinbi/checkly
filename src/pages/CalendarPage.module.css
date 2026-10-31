@@ -34,7 +34,7 @@
 .content {
   flex: 1;
   overflow-y: auto;
-  padding: 12px var(--spacing-page) calc(var(--tab-bar-height) + 16px);
+  padding: 12px var(--spacing-page) calc(var(--tab-bar-total) + 16px);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -116,7 +116,7 @@
 
 .goalTitle {
   font-size: var(--font-size-sm);
-  color: #555555;
+  color: var(--color-text-muted);
   font-weight: 600;
   text-align: center;
 }

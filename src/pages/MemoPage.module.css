@@ -40,7 +40,7 @@
 .content {
   flex: 1;
   overflow-y: auto;
-  padding: 4px var(--spacing-page) calc(var(--tab-bar-height) + 16px);
+  padding: 4px var(--spacing-page) calc(var(--tab-bar-total) + 16px);
 }
 
 .empty {

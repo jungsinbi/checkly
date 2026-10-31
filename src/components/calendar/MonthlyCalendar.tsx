@@ -1,4 +1,4 @@
-import { CaretLeft, CaretRight } from '@phosphor-icons/react'
+import { CaretLeft, CaretRight, Heart } from '@phosphor-icons/react'
 import { getMonthDays, formatMonthTitle, toDateStr, isSameMonth } from '../../lib/dates'
 import type { Memo } from '../../types'
 import styles from './MonthlyCalendar.module.css'
@@ -11,17 +11,19 @@ interface Props {
   onNext: () => void
   memos: Memo[]
   userId: string
+  doneDates: string[]
   onDateClick: (date: string) => void
 }
 
-export function MonthlyCalendar({ viewDate, onPrev, onNext, memos, userId, onDateClick }: Props) {
+export function MonthlyCalendar({ viewDate, onPrev, onNext, memos, userId, doneDates, onDateClick }: Props) {
   const days = getMonthDays(viewDate)
   const todayStr = toDateStr(new Date())
 
   function getCellData(date: Date) {
     const dateStr = toDateStr(date)
     const hasMemo = memos.some((m) => m.date === dateStr && m.user_id === userId)
-    return { hasMemo }
+    const isDone = doneDates.includes(dateStr)
+    return { hasMemo, isDone }
   }
 
   return (
@@ -43,7 +45,7 @@ export function MonthlyCalendar({ viewDate, onPrev, onNext, memos, userId, onDat
           const dateStr = toDateStr(date)
           const isCurrentMonth = isSameMonth(date, viewDate)
           const isToday = dateStr === todayStr
-          const { hasMemo } = getCellData(date)
+          const { hasMemo, isDone } = getCellData(date)
           const dateNumClass = isToday ? styles.today : hasMemo ? styles.memo : ''
 
           return (
@@ -55,6 +57,11 @@ export function MonthlyCalendar({ viewDate, onPrev, onNext, memos, userId, onDat
               <div className={`${styles.dateNum} ${isCurrentMonth ? dateNumClass : ''}`}>
                 {date.getDate()}
               </div>
+              {isCurrentMonth && (
+                <div className={styles.mark}>
+                  {isDone && <Heart size={14} weight="fill" className={styles.heart} />}
+                </div>
+              )}
             </div>
           )
         })}

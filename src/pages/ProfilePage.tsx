@@ -23,7 +23,7 @@ export function ProfilePage({ user, onUserUpdate, onLogout }: Props) {
   const [icon, setIcon] = useState(user.icon || '😊')
   const [showIconPicker, setShowIconPicker] = useState(false)
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null)
-  const [goalEdit, setGoalEdit] = useState<{ groupId: string; value: number } | null>(null)
+  const [goalEdit, setGoalEdit] = useState<{ groupId: string; value: string } | null>(null)
 
   async function handleSaveProfile() {
     await updateUser({ nickname, icon })
@@ -149,20 +149,26 @@ export function ProfilePage({ user, onUserUpdate, onLogout }: Props) {
                         <div className={styles.goalEdit}>
                           <span>주간 목표</span>
                           <input
-                            type="number"
-                            min={1} max={7}
+                            type="text"
+                            inputMode="numeric"
+                            maxLength={1}
                             value={goalEdit.value}
-                            onChange={(e) => setGoalEdit({ groupId: g.id, value: Number(e.target.value) })}
+                            onChange={(e) => setGoalEdit({ groupId: g.id, value: e.target.value.replace(/[^0-9]/g, '') })}
                             className={styles.goalInput}
                           />
                           <button className={styles.saveSmBtn} onClick={async () => {
-                            await updateWeeklyGoal(g.id, user.id, goalEdit.value)
+                            const goal = Number(goalEdit.value)
+                            if (!Number.isInteger(goal) || goal < 1 || goal > 7) {
+                              alert('주간 목표는 1~7 사이로 입력해 주세요')
+                              return
+                            }
+                            await updateWeeklyGoal(g.id, user.id, goal)
                             setGoalEdit(null)
                           }}>저장</button>
                           <button className={styles.cancelSmBtn} onClick={() => setGoalEdit(null)}>취소</button>
                         </div>
                       ) : (
-                        <button className={styles.textBtn} onClick={() => setGoalEdit({ groupId: g.id, value: myMember?.weekly_goal || 5 })}>
+                        <button className={styles.textBtn} onClick={() => setGoalEdit({ groupId: g.id, value: String(myMember?.weekly_goal || 5) })}>
                           주간 목표 변경
                         </button>
                       )}

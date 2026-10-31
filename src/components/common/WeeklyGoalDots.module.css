@@ -9,7 +9,7 @@
   height: 34px;
   border-radius: var(--radius-full);
   background: var(--color-bg-group-icon);
-  color: #555555;
+  color: var(--color-text-muted);
   display: flex;
   align-items: center;
   justify-content: center;

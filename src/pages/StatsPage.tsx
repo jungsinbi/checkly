@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { StatCard } from '../components/common/StatCard'
 import { useGroups } from '../hooks/useGroups'
-import { useStudyLogs } from '../hooks/useStudyLogs'
+import { useStudyLogs, useMyLogs } from '../hooks/useStudyLogs'
 import { toDateStr, getWeekDays, calcStreak, calcMaxStreak } from '../lib/dates'
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, subWeeks, startOfWeek, endOfWeek } from 'date-fns'
 import type { User } from '../types'
@@ -23,6 +23,7 @@ export function StatsPage({ user }: Props) {
   const { groups, members, fetchMembers } = useGroups(user.id)
   const currentGroupId = activeGroupId || groups[0]?.id
   const { logs } = useStudyLogs(currentGroupId, user.id)
+  const myAllLogs = useMyLogs(user.id, groups.map((g) => g.id))
   const currentMembers = currentGroupId ? (members[currentGroupId] || []) : []
 
   useEffect(() => {
@@ -39,9 +40,9 @@ export function StatsPage({ user }: Props) {
   const maxStreak = calcMaxStreak(myDoneDates)
   const totalDays = myDoneDates.length
 
+  // 이번 달은 오늘까지 지난 날만 기준으로 계산
   const monthStart = startOfMonth(today)
-  const monthEnd = endOfMonth(today)
-  const monthDays = eachDayOfInterval({ start: monthStart, end: monthEnd })
+  const monthDays = eachDayOfInterval({ start: monthStart, end: today })
   const doneDaysThisMonth = monthDays.filter((d) => myDoneDates.includes(toDateStr(d))).length
   const monthRate = Math.round((doneDaysThisMonth / monthDays.length) * 100)
 
@@ -50,7 +51,10 @@ export function StatsPage({ user }: Props) {
   const weekDays = getWeekDays(today)
   const weekDoneCount = weekDays.filter((d) => myDoneDates.includes(toDateStr(d))).length
 
-  // 주간 차트 데이터 (최근 8주)
+  // 주간 달성률은 주간 목표 대비 (목표 넘게 해도 100%)
+  const goalRate = (done: number, goal: number) => Math.round(Math.min(done / goal, 1) * 100)
+
+  // 주간 차트 데이터 (최근 8주, 목표 대비)
   const weeklyChartData = Array.from({ length: 8 }, (_, i) => {
     const weekStart = startOfWeek(subWeeks(today, 7 - i), { weekStartsOn: 0 })
     const weekEnd = endOfWeek(weekStart, { weekStartsOn: 0 })
@@ -58,16 +62,16 @@ export function StatsPage({ user }: Props) {
     const done = days.filter((d) => myDoneDates.includes(toDateStr(d))).length
     return {
       label: format(weekStart, 'M/d'),
-      value: Math.round((done / 7) * 100),
+      value: goalRate(done, weeklyGoal),
     }
   })
 
-  // 월별 차트 데이터 (최근 6개월)
+  // 월별 차트 데이터 (최근 6개월, 이번 달은 오늘까지)
   const monthlyChartData = Array.from({ length: 6 }, (_, i) => {
     const d = new Date(today)
     d.setMonth(d.getMonth() - (5 - i))
     const mStart = startOfMonth(d)
-    const mEnd = endOfMonth(d)
+    const mEnd = i === 5 ? today : endOfMonth(d)
     const days = eachDayOfInterval({ start: mStart, end: mEnd })
     const done = days.filter((day) => myDoneDates.includes(toDateStr(day))).length
     return {
@@ -79,17 +83,20 @@ export function StatsPage({ user }: Props) {
   const chartData = chartPeriod === 'weekly' ? weeklyChartData : monthlyChartData
 
   // 그룹 통계
-  const todayLogUsers = logs.filter((l) => l.date === todayStr && l.is_done).map((l) => l.user_id)
+  const memberIds = new Set(currentMembers.map((m) => m.user_id))
+  const todayLogUsers = logs.filter((l) => l.date === todayStr && l.is_done && memberIds.has(l.user_id)).map((l) => l.user_id)
   const groupTodayCount = new Set(todayLogUsers).size
   const allMemberCount = currentMembers.length
-  const groupWeekDays = getWeekDays(today)
-  const groupWeekDone = groupWeekDays.reduce((acc, d) => {
-    const dstr = toDateStr(d)
-    const done = logs.filter((l) => l.date === dstr && l.is_done).length
-    return acc + done
-  }, 0)
-  const groupWeekTotal = groupWeekDays.length * allMemberCount
-  const groupWeekRate = groupWeekTotal > 0 ? Math.round((groupWeekDone / groupWeekTotal) * 100) : 0
+
+  // 멤버별 이번 주 완료 횟수와 목표
+  const memberWeek = currentMembers.map((m) => {
+    const mDates = logs.filter((l) => l.user_id === m.user_id && l.is_done).map((l) => l.date)
+    const done = weekDays.filter((d) => mDates.includes(toDateStr(d))).length
+    return { userId: m.user_id, done, goal: m.weekly_goal || 5 }
+  })
+  const groupGoalSum = memberWeek.reduce((acc, m) => acc + m.goal, 0)
+  const groupDoneSum = memberWeek.reduce((acc, m) => acc + Math.min(m.done, m.goal), 0)
+  const groupWeekRate = groupGoalSum > 0 ? Math.round((groupDoneSum / groupGoalSum) * 100) : 0
 
   return (
     <div className={styles.page}>
@@ -163,12 +170,12 @@ export function StatsPage({ user }: Props) {
               </div>
               <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={chartData} margin={{ top: 4, right: 4, bottom: 0, left: -20 }}>
-                  <XAxis dataKey="label" tick={{ fontSize: 13, fontFamily: 'Nunito', fill: '#555555' }} />
-                  <YAxis tick={{ fontSize: 13, fontFamily: 'Nunito', fill: '#555555' }} domain={[0, 100]} />
+                  <XAxis dataKey="label" tick={{ fontSize: 13, fontFamily: 'Nunito', fill: '#5E4F48' }} />
+                  <YAxis tick={{ fontSize: 13, fontFamily: 'Nunito', fill: '#5E4F48' }} domain={[0, 100]} />
                   <Tooltip formatter={(v) => [`${v}%`, '달성률']} />
                   <Bar dataKey="value" radius={[6, 6, 0, 0]}>
                     {chartData.map((_, i) => (
-                      <Cell key={i} fill="#7B6BBF" />
+                      <Cell key={i} fill="#B84C72" />
                     ))}
                   </Bar>
                 </BarChart>
@@ -180,7 +187,7 @@ export function StatsPage({ user }: Props) {
               <div className={styles.allGroupsGrid}>
                 <p className={styles.sectionLabel}>전체 그룹 이번 주</p>
                 {groups.map((g) => {
-                  const gLogs = logs.filter((l) => l.group_id === g.id && l.user_id === user.id && l.is_done)
+                  const gLogs = myAllLogs.filter((l) => l.group_id === g.id && l.is_done)
                   const gDates = gLogs.map((l) => l.date)
                   const gDoneDays = weekDays.map((d) => gDates.includes(toDateStr(d)))
                   return (
@@ -238,9 +245,8 @@ export function StatsPage({ user }: Props) {
               <p className={styles.chartTitle}>멤버별 달성률 (이번 주)</p>
               <div className={styles.memberBars}>
                 {currentMembers.map((m) => {
-                  const mDates = logs.filter((l) => l.user_id === m.user_id && l.is_done).map((l) => l.date)
-                  const done = weekDays.filter((d) => mDates.includes(toDateStr(d))).length
-                  const rate = Math.round((done / 7) * 100)
+                  const week = memberWeek.find((w) => w.userId === m.user_id)
+                  const rate = week ? goalRate(week.done, week.goal) : 0
                   return (
                     <div key={m.user_id} className={styles.memberBarRow}>
                       <span className={styles.memberBarName}>

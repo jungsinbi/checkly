@@ -50,34 +50,27 @@ export function formatWeekRange(date: Date): string {
 export { isSameDay, isSameMonth, format }
 
 export function calcStreak(doneDates: string[]): number {
-  if (doneDates.length === 0) return 0
-  const sorted = [...doneDates].sort().reverse()
-  const todayStr = toDateStr(today())
+  const done = new Set(doneDates)
+  const cursor = today()
+  // 오늘 아직 체크 전이면 어제까지 이어진 기록을 보여줌
+  if (!done.has(toDateStr(cursor))) cursor.setDate(cursor.getDate() - 1)
 
   let streak = 0
-  let current = todayStr
-
-  for (const d of sorted) {
-    if (d === current) {
-      streak++
-      const prev = new Date(current)
-      prev.setDate(prev.getDate() - 1)
-      current = toDateStr(prev)
-    } else {
-      break
-    }
+  while (done.has(toDateStr(cursor))) {
+    streak++
+    cursor.setDate(cursor.getDate() - 1)
   }
   return streak
 }
 
 export function calcMaxStreak(doneDates: string[]): number {
-  if (doneDates.length === 0) return 0
-  const sorted = [...doneDates].sort()
+  const sorted = [...new Set(doneDates)].sort()
+  if (sorted.length === 0) return 0
   let max = 1
   let current = 1
 
   for (let i = 1; i < sorted.length; i++) {
-    const prev = new Date(sorted[i - 1])
+    const prev = parseISO(sorted[i - 1])
     prev.setDate(prev.getDate() + 1)
     if (toDateStr(prev) === sorted[i]) {
       current++

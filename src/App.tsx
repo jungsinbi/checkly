@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { BottomTabBar } from './components/common/BottomTabBar'
 import { CalendarPage } from './pages/CalendarPage'
@@ -12,6 +12,7 @@ import { GroupJoinPage } from './pages/GroupJoinPage'
 import { getLocalUser, setLocalUser } from './lib/storage'
 import { useUser } from './hooks/useUser'
 import { useGroups } from './hooks/useGroups'
+import { ensureAuth } from './lib/auth'
 import type { User } from './types'
 
 function MainApp({ user, onUserUpdate, onLogout }: { user: User; onUserUpdate: (u: User) => void; onLogout: () => void }) {
@@ -36,7 +37,12 @@ function MainApp({ user, onUserUpdate, onLogout }: { user: User; onUserUpdate: (
 
 export default function App() {
   const [user, setUser] = useState<User | null>(getLocalUser)
+  const [authReady, setAuthReady] = useState(false)
   const { createUser } = useUser()
+
+  useEffect(() => {
+    ensureAuth(getLocalUser()?.id ?? null).finally(() => setAuthReady(true))
+  }, [])
 
   function handleOnboardingComplete(u: User) {
     setLocalUser(u)
@@ -46,6 +52,8 @@ export default function App() {
   function handleLogout() {
     setUser(null)
   }
+
+  if (!authReady) return null
 
   return (
     <BrowserRouter>

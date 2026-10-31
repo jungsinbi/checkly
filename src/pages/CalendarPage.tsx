@@ -140,6 +140,22 @@ export function CalendarPage({ user }: Props) {
           </div>
         ) : (
           <>
+            {/* 오늘 체크 카드 */}
+            <div className={styles.todayCard}>
+              <div className={styles.todayInfo}>
+                <p className={styles.todayDate}>오늘 {todayDisplay}</p>
+                <p className={styles.todayStatus}>
+                  {isTodayDone ? '미션 성공했어요!' : '아직 체크 전이에요'}
+                </p>
+                {streak > 0 && (
+                  <p className={styles.streak}>
+                    <Fire size={18} weight="duotone" color="#F2734B" /> {streak}일 연속 달성 중
+                  </p>
+                )}
+              </div>
+              <CheckButton isDone={isTodayDone} onToggle={toggleToday} />
+            </div>
+
             {/* 월별/주간 토글 */}
             <div className={styles.toggleWrapper}>
               <div className={styles.toggle}>
@@ -162,6 +178,7 @@ export function CalendarPage({ user }: Props) {
                 onNext={nextPeriod}
                 memos={memos}
                 userId={user.id}
+                doneDates={myDoneDates}
                 onDateClick={setSelectedDate}
               />
             ) : (
@@ -173,22 +190,6 @@ export function CalendarPage({ user }: Props) {
                 members={currentMembers}
               />
             )}
-
-            {/* 오늘 체크 카드 */}
-            <div className={styles.todayCard}>
-              <div className={styles.todayInfo}>
-                <p className={styles.todayDate}>오늘 {todayDisplay}</p>
-                <p className={styles.todayStatus}>
-                  {isTodayDone ? '미션 성공했어요!' : '아직 체크 전이에요'}
-                </p>
-                {streak > 0 && (
-                  <p className={styles.streak}>
-                    <Fire size={16} weight="fill" color="#FF6B35" /> {streak}일 연속 달성 중
-                  </p>
-                )}
-              </div>
-              <CheckButton isDone={isTodayDone} onToggle={toggleToday} />
-            </div>
 
             {/* 주간 목표 카드 */}
             <div className={styles.goalCard}>

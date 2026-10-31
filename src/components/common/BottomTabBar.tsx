@@ -21,7 +21,7 @@ export function BottomTabBar() {
             `${styles.tab} ${isActive ? styles.active : ''}`
           }
         >
-          <Icon size={26} weight="regular" />
+          <Icon size={26} />
           <span className={styles.label}>{label}</span>
         </NavLink>
       ))}

@@ -3,6 +3,24 @@ import { supabase } from '../lib/supabase'
 import { toDateStr, today } from '../lib/dates'
 import type { StudyLog } from '../types'
 
+// 여러 그룹에 걸친 내 기록 (통계의 「전체 그룹 이번 주」용)
+export function useMyLogs(userId: string | undefined, groupIds: string[]) {
+  const [logs, setLogs] = useState<StudyLog[]>([])
+  const groupKey = groupIds.join(',')
+
+  useEffect(() => {
+    if (!userId || groupIds.length === 0) return
+    supabase
+      .from('study_logs')
+      .select('*')
+      .eq('user_id', userId)
+      .in('group_id', groupIds)
+      .then(({ data }) => setLogs((data as StudyLog[]) || []))
+  }, [userId, groupKey])
+
+  return logs
+}
+
 export function useStudyLogs(groupId: string | undefined, userId: string | undefined) {
   const [logs, setLogs] = useState<StudyLog[]>([])
   const [loading, setLoading] = useState(false)
